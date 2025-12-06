@@ -6,22 +6,21 @@
 - `token_request.py` - OAuth認証フロー
 - `.env.sample` - 環境変数テンプレート
 
-## 必要な環境
+## 必要な環境 / 依存関係
 - Python 3.10以上
-- `requests-oauthlib`
-- `python-dotenv`
+  - `requests-oauthlib`
+  -  `python-dotenv`  
 
 ```bash
 pip install -r requirements.txt
 ```
 
+## セットアップ
 
-
-1.  OAuth認証用情報の取得（初回のみ）
+### 1.  OAuth認証用情報の取得（初回のみ）
 **Consumer KeyとConsumer Secretを取得：**
 - https://developer.hatena.ne.jp/ja/documents/auth/apis/oauth/consumer を参照
-- `.env`に以下を設定：
-取得方法： https://developer.hatena.ne.jp/ja/documents/auth/apis/oauth/consumer
+- `.env`に以下を設定：  
 
 ```env
 HATENA_CONSUMER_KEY=Your_consumer_key
@@ -47,21 +46,9 @@ HATENA_ACCESS_TOKEN=your_access_token
 HATENA_ACCESS_TOKEN_SECRET=your_access_token_secret
 ```
 
+## 投稿のテスト
 
-2. token_request.pyをコマンドラインで実行：
-URLがターミナルに表示される。ブラウザでアクセスし認証後、そこで取得したキーをターミナルへ入力。
-
-3. ターミナルに`access token` `access token secret`が表示される
-取得した二つのトークンを`.env`へ追記：
-
-```env
-HATENA_ACCESS_TOKEN=Your_access_token
-HATENA_ACCESS_TOKEN_SECRET=Your_access_token_secret
-```
-
-## 投稿
-
-上記手順後hatena_blog_poster.pyを実行しテスト。表示されるURLへアクセス。投稿を確認します。
+上記手順後hatena_blog_poster.pyを実行。表示されるURLへアクセス。投稿を確認します。
 
 ```bash
 python token_request.py
@@ -70,7 +57,7 @@ python token_request.py
 - スクリプトのデフォルトはマークダウン記法
 - ただし、マークダウンの内容を正しく表示させるには、予めはてな側の設定で記法を選択しておくこと必要です。
 
-### 内部フロー
+## 内部フロー
 
 1. `xml_unparser()` - 投稿データをAtom形式のXMLに変換
 2. `hatena_oauth()` - OAuth1認証でAPIリクエスト送信
