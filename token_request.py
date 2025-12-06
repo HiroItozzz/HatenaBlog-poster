@@ -3,7 +3,6 @@ import os
 from dotenv import load_dotenv
 from requests_oauthlib import OAuth1Session
 
-
 """https://developer.hatena.ne.jp/ja/documents/auth/apis/oauth/consumer
     OAuth認証を行い他のアプリケーションにアカウントの操作権限を付与する操作
     上記URLの手順に従いCONSUMER_KEYとCONSUMER_SECRETを取得"""
