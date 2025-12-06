@@ -10,6 +10,8 @@ from requests_oauthlib import OAuth1Session
 
 logger = logging.getLogger(__name__)
 
+logging.basicConfig(level=logging.INFO)
+
 load_dotenv(override=False)
 
 
@@ -127,7 +129,6 @@ def hatena_oauth(xml_str: str, hatena_secret_keys: dict) -> dict:
 
 
 def parse_response(response: Response) -> dict[str, Any]:
-    """投稿結果を取得"""
 
     # 名前空間
     NS = {"atom": "http://www.w3.org/2005/Atom", "app": "http://www.w3.org/2007/app"}
@@ -144,9 +145,7 @@ def parse_response(response: Response) -> dict[str, Any]:
     response_dict = {
         "status_code": response.status_code,
         # Atom名前空間の要素
-        "title": safe_find(
-            root, "{http://www.w3.org/2005/Atom}title"
-        ),  # XML名前空間の実体
+        "title": safe_find(root, "atom:title", NS),
         "author": safe_find(root, "atom:author/atom:name", NS),
         "content": safe_find(root, "atom:content", NS),
         "time": datetime.fromisoformat(safe_find(root, "atom:updated", NS)),

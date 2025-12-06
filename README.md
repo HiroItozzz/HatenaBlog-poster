@@ -1,4 +1,4 @@
-# hatena-blog-poster
+# hatenablog-poster
 はてなアカウントのOAuth認証を行いはてなブログへ自動投稿するための簡単なスクリプト。  
 
 ## ファイル構成
@@ -13,6 +13,24 @@
 
 ```bash
 pip install -r requirements.txt
+```
+
+## 使用方法
+
+- セットアップ完了後、`hatenablog_poster.py`から関数をインポートして使用：
+
+```python
+from hatenablog_poster import blog_post
+
+result = blog_post(
+    title="記事タイトル",
+    content="記事本文",
+    categories=["カテゴリ1"],
+    hatena_secret_keys={...},
+    is_draft=False
+)
+
+print(result['link_alternate'])  # 投稿URLを表示
 ```
 
 ## セットアップ
@@ -48,14 +66,15 @@ HATENA_ACCESS_TOKEN_SECRET=your_access_token_secret
 
 ## 投稿のテスト
 
-上記手順後hatena_blog_poster.pyを実行。表示されるURLへアクセス。投稿を確認します。
+- 上記手順後`hatenablog_poster.py`を実行。表示されるURLへアクセス。投稿を確認します。
 
 ```bash
-python token_request.py
+python hatenablog_poster.py
 ```
 
 - スクリプトのデフォルトはマークダウン記法
-- ただし、マークダウンの内容を正しく表示させるには、予めはてな側の設定で記法を選択しておくこと必要です。
+- ただし、マークダウンの内容を正しく表示させるには、予めはてな側の設定で記法を選択しておくことが必要です。
+
 
 ## 内部フロー
 
