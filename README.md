@@ -9,11 +9,7 @@
 ## 必要な環境 / 依存関係
 - Python 3.10以上
   - `requests-oauthlib`
-  -  `python-dotenv`  
-
-```bash
-pip install -r requirements.txt
-```
+  - `python-dotenv`  
 
 ## 使用方法
 
@@ -25,32 +21,37 @@ from hatenablog_poster import blog_post
 result = blog_post(
     title="記事タイトル",
     content="記事本文",
-    categories=["カテゴリ1"],
-    hatena_secret_keys={...},
-    is_draft=False
+    categories=["カテゴリ1", "カテゴリ2"],
+    is_draft=False,
 )
 
-print(result['link_alternate'])  # 投稿URLを表示
+print(result["link_alternate"])  # 投稿URLを表示
+print(result["link_edit_user"])  # 編集用URLを表示
 ```
 
 ## セットアップ
 
-### 1.  OAuth認証用情報の取得（初回のみ）
+### 1. 依存ライブラリのインストール
+```bash
+pip install -r requirements.txt
+```
+
+### 2.  OAuth認証用情報の取得
 **Consumer KeyとConsumer Secretを取得：**
 - https://developer.hatena.ne.jp/ja/documents/auth/apis/oauth/consumer を参照
-- `.env`に以下を設定：  
+- `.env`を作成し以下を設定：  
 
 ```env
 HATENA_CONSUMER_KEY=Your_consumer_key
 HATENA_CONSUMER_SECRET=Your_consumer_secret
 ```
 
-**投稿用エンドポイントを作成・設定：**
+**投稿用エンドポイントを作成・`.env`で設定：**
 ```env
 HATENA_ENTRY_URL=https://blog.hatena.ne.jp/{あなたのはてなID}/{あなたのブログID}/atom/entry
 ```
 
-### 2. アクセストークンの取得
+### 3. アクセストークンの取得
 ```bash
 python token_request.py
 ```
@@ -72,7 +73,7 @@ HATENA_ACCESS_TOKEN_SECRET=your_access_token_secret
 python hatenablog_poster.py
 ```
 
-- スクリプトのデフォルトはマークダウン記法
+- 本文のデフォルトはマークダウン記法
 - ただし、マークダウンの内容を正しく表示させるには、予めはてな側の設定で記法を選択しておくことが必要です。
 
 

@@ -11,8 +11,7 @@ from requests_oauthlib import OAuth1Session
 logger = logging.getLogger(__name__)
 
 logging.basicConfig(level=logging.INFO)
-
-load_dotenv(override=False)
+load_dotenv()
 
 
 # ブログの内容
@@ -58,7 +57,7 @@ def safe_find_attr(
 ) -> str:
     """属性取得用ヘルパー関数"""
     elem = root.find(key, ns)
-    return elem.get(attr) if elem is not None else default
+    return elem.get(attr, "") if elem is not None else default
 
 
 def xml_unparser(
@@ -110,7 +109,7 @@ def xml_unparser(
     return ET.tostring(ROOT, encoding="unicode")
 
 
-def hatena_oauth(xml_str: str, hatena_secret_keys: dict) -> dict:
+def hatena_oauth(xml_str: str, hatena_secret_keys: dict = HATENA_SECRET_KEYS) -> dict:
     """はてなブログへ投稿"""
 
     URL = hatena_secret_keys.pop("hatena_entry_url")
@@ -166,7 +165,7 @@ def blog_post(
     title: str,
     content: str,
     categories: list,
-    hatena_secret_keys: dict,
+    hatena_secret_keys: dict = HATENA_SECRET_KEYS,
     preset_categories: list = [],
     author: str | None = None,
     updated: datetime | None = None,
