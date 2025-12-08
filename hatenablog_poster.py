@@ -10,9 +10,7 @@ from requests_oauthlib import OAuth1Session
 
 logger = logging.getLogger(__name__)
 
-logging.basicConfig(level=logging.INFO)
 load_dotenv()
-
 
 # ブログの内容
 TITLE = "タイトル：自動投稿のテスト"
